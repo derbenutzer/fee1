@@ -3,8 +3,10 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Overview</title>
+    <link rel="stylesheet" href="plugins/jqueryui/jquery-ui.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="plugins/jqueryui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="js/handlebars.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script id='noteListTemplateText' type='text/x-handlebars-template'>
@@ -17,6 +19,45 @@
     </script>
 </head>
 <body>
-<h1>hello world</h1>
+<div id="mainContent">
+    <h1>My Notes</h1>
+    <button id="createNote">Create Note</button>
+    <select>
+        <option value="date">Erledigunsdatum</option>
+        <option value="createDate">Erstellungsdatum</option>
+        <option value="importance">Wichtigkeit</option>
+    </select>
+</div>
+<div id="createNoteDialogContainer">
+    <form>
+        Titel:<br>
+        <input type="text" name="title" value="">
+        <br><br>
+
+        Beschreibung:<br>
+        <input type="text" name="content" value="">
+        <br><br>
+
+        <fieldset id="importanceInput">
+            <legend>Wichtigkeit: </legend>
+            <label for="radio-1">Normal</label>
+            <input type="radio" name="radio-1" checked="true" id="radio-1">
+            <label for="radio-2">Wichtig</label>
+            <input type="radio" name="radio-1" id="radio-2">
+            <label for="radio-3">Sehr Wichtig</label>
+            <input type="radio" name="radio-1" id="radio-3">
+        </fieldset>
+        <br><br>
+
+        Erledigt bis:<br>
+        <input type="text" id="datepicker">
+        <br><br>
+
+        <input id="createNodeSubmit" type="submit" value="Speichern">
+        <button id="createNoteCancel" class="cancel">Abbrechen</button>
+    </form>
+
+</div>
+<div id="data"></div>
 </body>
 </html>
