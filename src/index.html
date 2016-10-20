@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="plugins/jqueryui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="plugins/momentjs/moment.min.js"></script>
     <script type="text/javascript" src="js/handlebars.min.js"></script>
     <script type="text/javascript" src="js/app.js"></script>
     <script id='noteListTemplateText' type='text/x-handlebars-template'>
@@ -24,7 +25,7 @@
     <button id="createNote">Create Note</button>
     <select>
         <option value="date">Erledigunsdatum</option>
-        <option value="createDate">Erstellungsdatum</option>
+        <option value="creationDate">Erstellungsdatum</option>
         <option value="importance">Wichtigkeit</option>
     </select>
 </div>
@@ -40,11 +41,11 @@
 
         <fieldset id="importanceInput">
             <legend>Wichtigkeit: </legend>
-            <label for="radio-1">Normal</label>
+            <label data-importance="1" for="radio-1">Normal</label>
             <input type="radio" name="radio-1" checked="true" id="radio-1">
-            <label for="radio-2">Wichtig</label>
+            <label data-importance="2" for="radio-2">Wichtig</label>
             <input type="radio" name="radio-1" id="radio-2">
-            <label for="radio-3">Sehr Wichtig</label>
+            <label data-importance="3" for="radio-3">Sehr Wichtig</label>
             <input type="radio" name="radio-1" id="radio-3">
         </fieldset>
         <br><br>
