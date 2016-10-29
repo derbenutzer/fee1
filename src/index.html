@@ -5,16 +5,16 @@
     <title>Overview</title>
     <link rel="stylesheet" href="plugins/jqueryui/jquery-ui.min.css">
     <link rel="stylesheet" href="css/styles.css">
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="plugins/jquery.min.js"></script>
     <script type="text/javascript" src="plugins/jqueryui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="plugins/momentjs/moment.min.js"></script>
-    <script type="text/javascript" src="js/handlebars.min.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="plugins/handlebars.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
     <script id='noteListTemplateText' type='text/x-handlebars-template'>
         <h2>Notes</h2>
-        <ul>
+        <ul id="noteList">
             {{#each this}}
-            <li><div class="nDate">{{ date }}</div><div class="nTitle">{{ title }}</div><div class="nIsFinished">{{ finished }}</div><div class="nContent">{{ content }}</div></li>
+            <li onclick="Note.edit();return false;"><div class="nDate">{{ date }}</div><div class="nTitle">{{ title }}</div><div class="nIsFinished">{{ finished }}</div><div class="nContent">{{ content }}</div><div class="editButtonContainer"><button>Edit</button></div></li>
             {{/each}}
         </ul>
     </script>
@@ -36,7 +36,7 @@
         <br><br>
 
         Beschreibung:<br>
-        <input type="text" name="content" value="">
+        <textarea type="text" name="content" value=""></textarea>
         <br><br>
 
         <fieldset id="importanceInput">

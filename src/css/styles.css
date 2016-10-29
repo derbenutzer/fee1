@@ -376,3 +376,37 @@ li div {
     background: #255587;
     color: #bfbfbf
 }
+
+textarea,
+input {
+    min-width: 15rem;
+    width:60%
+}
+
+textarea {
+    min-height: 8rem;
+}
+
+#datepicker {
+    min-width:8rem;
+    width: 8rem;
+}
+
+#createNodeSubmit {
+    width: initial;
+    min-width: initial;
+}
+
+#noteList .editButtonContainer {
+    margin-left: auto;
+}
+
+#noteList li{
+    border-bottom: 2px solid lightgrey;
+    padding-top: 1rem;
+    cursor:pointer;
+}
+
+#noteList li:hover{
+    background-color:#e6e6e6;
+}
