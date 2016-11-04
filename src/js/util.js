@@ -5,37 +5,19 @@ $.fn.stars = function() {
         var $span = $('<span />').width(size);
         $(this).html($span);
     });
-}
-
-addNoteListEventHandlers = function(){
-
-    $('#noteList input').on("change",function(e){
-        let listItem = $(e.currentTarget).parent()
-        let id = listItem.find("div.nId").text();
-        let finishedNode = listItem.find("div.nIsFinished");
-
-        if(finishedNode.text() === "1"){
-            finishedNode.text("0");
-            listItem.removeClass("isFinished");
-        }
-        else{
-            finishedNode.text("1");
-            listItem.addClass("isFinished");
-        }
-        NoteList.toggleFinished(id);
-    });
-
-}
+};
 
 initializeUIElements = function(){
     $("#datepicker").datepicker({ dateFormat: 'dd.mm.yy' });
-    $("#importanceInput input").checkboxradio();
-    $("#importanceInput").controlgroup();
+    var importanceInput = $("#importanceInput");
+    importanceInput.find("input").checkboxradio();
+    importanceInput.controlgroup();
     $("#dialog").dialog({
         autoOpen: false,
         modal: true
     });
-}
+};
+
 
 addEventHandlers = function(){
     $('#createNote').click(function(){
@@ -53,7 +35,7 @@ addEventHandlers = function(){
         NoteList.addNote();
     });
 
-    $('#mainContent select').on("change",function(){
+    $('#mainContent').find('select').on("change",function(){
         NoteList.render();
     });
 
@@ -66,4 +48,24 @@ addEventHandlers = function(){
         $(this).text("Show Finished");
         $('body.showFinished #switchFinished').text("Hide Finished");
     });
-}
+};
+
+addNoteListEventHandlers = function(){
+
+    $('#noteList').find('input').on("change",function(e){
+        let listItem = $(e.currentTarget).parent();
+        let id = listItem.find("div.nId").text();
+        let finishedNode = listItem.find("div.nIsFinished");
+
+        if(finishedNode.text() === "1"){
+            finishedNode.text("0");
+            listItem.removeClass("isFinished");
+        }
+        else{
+            finishedNode.text("1");
+            listItem.addClass("isFinished");
+        }
+        NoteList.toggleFinished(id);
+    });
+
+};
