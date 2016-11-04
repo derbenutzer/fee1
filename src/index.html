@@ -14,20 +14,47 @@
         <h2>Notes</h2>
         <ul id="noteList">
             {{#each this}}
-            <li onclick="Note.edit();return false;"><div class="nDate">{{ date }}</div><div class="nTitle">{{ title }}</div><div class="nIsFinished">{{ finished }}</div><div class="nContent">{{ content }}</div><div class="editButtonContainer"><button>Edit</button></div></li>
+            <li>
+                <input type="checkbox" data-finished="{{ isFinished }}" name="nDone">
+                <div class="noteContainer">
+                    <div class="nContentContainer">
+                        <div class="nTitle"><h3>{{ title }}</h3></div>
+                        <div class="nContent">{{ content }}</div>
+                    </div>
+                    <div class="noteInfoContainer">
+                        <div class="nImportance">{{ importance }}</div><span class="stars">{{ importance }}</span>
+                        <div class="nDate">{{ date }}</div>
+                    </div>
+                    <div class="noteAdminContainer">
+                        <div class="nId">{{ id }}</div>
+                        <div class="nIsFinished">{{ isFinished }}</div>
+                    </div>
+                    <div class="editButtonContainer">
+                        <button onclick="Note.edit(this);return false;">Edit</button><button onclick="NoteList.deleteNote(this);return false;">Delete</button>
+                    </div>
+                </div>
+            </li>
             {{/each}}
         </ul>
     </script>
 </head>
 <body>
 <div id="mainContent">
-    <h1>My Notes</h1>
-    <button id="createNote">Create Note</button>
-    <select>
-        <option value="date">Erledigunsdatum</option>
-        <option value="creationDate">Erstellungsdatum</option>
-        <option value="importance">Wichtigkeit</option>
-    </select>
+    <div id="header">
+        <div id="headerLeft">
+            <h1>My Notes</h1>
+            <button id="createNote">Create Note</button>
+            <select>
+                <option value="date">Erledigunsdatum</option>
+                <option value="creationDate">Erstellungsdatum</option>
+                <option value="importance">Wichtigkeit</option>
+            </select>
+        </div>
+        <div id="headerRight">
+            <button id="switchStyle">Style Switcher</button>
+            <button id="switchFinished">Show Finished</button>
+        </div>
+    </div>
 </div>
 <div id="createNoteDialogContainer">
     <form>
@@ -41,11 +68,11 @@
 
         <fieldset id="importanceInput">
             <legend>Wichtigkeit: </legend>
-            <label data-importance="1" for="radio-1">Normal</label>
+            <label data-importance="0" for="radio-1">Normal</label>
             <input type="radio" name="radio-1" checked="true" id="radio-1">
-            <label data-importance="2" for="radio-2">Wichtig</label>
+            <label data-importance="1" for="radio-2">Wichtig</label>
             <input type="radio" name="radio-1" id="radio-2">
-            <label data-importance="3" for="radio-3">Sehr Wichtig</label>
+            <label data-importance="2" for="radio-3">Sehr Wichtig</label>
             <input type="radio" name="radio-1" id="radio-3">
         </fieldset>
         <br><br>
@@ -59,6 +86,7 @@
     </form>
 
 </div>
+<div id="deleteDialog">Please Confirm that you want to delete this Note!</div>
 <div id="data"></div>
 </body>
 </html>

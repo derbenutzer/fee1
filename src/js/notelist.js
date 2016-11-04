@@ -5,48 +5,124 @@ NoteList.list = Storage.getList();
 
 NoteList.render = function(){
 
-    //compareMethod = compareMethod || Note.compareDueDate;
+    console.log("render");
 
-    compareMethod = NoteList.getCurrentlySelectedSort($('#mainContent select'));
-
-    //handlebars renderData
     var noteListTemplateText = $('#noteListTemplateText').html();
     var createNoteListHtml = Handlebars.compile (noteListTemplateText);
 
     $('#mainContent ul').remove();
     $('#mainContent h2').remove();
+
+    compareMethod = NoteList.getCurrentlySelectedSort($('#mainContent select'));
     $('#mainContent').append (createNoteListHtml(NoteList.getSortedList(compareMethod)));
+
+    $('#noteList input[data-finished="1"]').prop('checked', true).closest('li').addClass("isFinished");
+    $('span.stars').stars();
+
+    addNoteListEventHandlers();
+
 };
 
 NoteList.addNote = function() {
+    let dateText = $('#datepicker').val().split(".");
+    let temp = dateText[0];
+    dateText[0]=dateText[1]
+    dateText[1]=temp;
+    dateText = dateText.join();
 
+    let note={};
+    note.dateToCompare = new Date(dateText);
+    note.date = moment(note.dateToCompare).format('DD-MM-YYYY').replace(/-/g, '.');
+    note.title = $('input[name="title"]').val();
+    note.content = $('textarea').val();
+    note.importance = +$('#importanceInput .ui-state-active').attr("data-importance");
+    console.log("Note.editId");
+    console.log(Note.editId);
+    note.created = new Date();
 
-    //todo: CleanUp note.date = x; note.title = x; etc.
-    var dateToCompare=new Date($('#datepicker').val());
-    var date = moment(dateToCompare).format('ll');
-    var title=$('input[name="title"]').val();
-    var content=$('textarea').val();
-    var importance=+$('#importanceInput .ui-state-active').attr("data-importance");
-    var created = new Date();
-    var note = {date:date,dateToCompare:dateToCompare,created:created, title: title, finished:0, content:content,importance:importance};
-    note.id=(NoteList.list.length+1);
-    NoteList.list.push(note);
-    Storage.storeList(NoteList.list);
+    if(Note.editId<1) {
+        note.id = (NoteList.list.length + 1);
+        note.isFinished = 0;
+        NoteList.list.push(note)
+    }
+    else{
+        note.id = Note.editId;
+        note.isFinished = Note.isFinished;
+        let index = NoteList.list.map(function(e) { return e.id; }).indexOf(note.id);
+        NoteList.list[index] = note;
+    }
 
+    NoteList.storeList();
+    Note.close();
     NoteList.render();
 };
 
+
+
+
+NoteList.toggleFinished = function(id){
+    let index = NoteList.getNodeIndexById(id);
+    let isFinished = NoteList.list[index].isFinished;
+
+    if(isFinished>0){
+        NoteList.list[index].isFinished = 0;
+
+    }else{
+        NoteList.list[index].isFinished = 1;
+    }
+    NoteList.storeList();
+    return;
+}
+
+NoteList.deleteNote = function(node){
+
+    console.log("delete");
+    $('body').addClass("shade");
+
+    $("#deleteDialog").dialog({
+        title:"Confirm",
+        buttons : {
+            "Confirm" : function() {
+                NoteList.deleteHelper(node);
+                $('body').removeClass("shade");
+                $(this).dialog("close");
+            },
+            "Cancel" : function() {
+                $('body').removeClass("shade");
+                $(this).dialog("close");
+            }
+        }
+    });
+}
+
+NoteList.deleteHelper = function(node){
+    node = $($(node).closest('li')).hide();
+    let id = parseInt(node.find(".nId").text());
+    let index = NoteList.getNodeIndexById(id);
+
+    NoteList.list.splice(index, 1);
+
+    NoteList.storeList();
+    NoteList.render();
+}
+
 NoteList.getSortedList = function(sortMethod){
-    return NoteList.list.sort(sortMethod);
+    NoteList.list = NoteList.list.sort(sortMethod);
+    return NoteList.list
 }
 
 NoteList.storeList = function(notelist){
-    Storage.storeList(notelist);
+    Storage.storeList(NoteList.list);
 }
 
 NoteList.getList = function(){
     return Storage.getList();
 }
+
+NoteList.getNodeIndexById = function(id){
+    return NoteList.list.map(function(e) { return e.id; }).indexOf(parseInt(id));
+}
+
 
 NoteList.getCurrentlySelectedSort = function(node){
     switch(node.val()) {
