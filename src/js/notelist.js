@@ -115,10 +115,6 @@ NoteList.storeList = function(notelist){
     Storage.storeList(NoteList.list);
 }
 
-NoteList.getList = function(){
-    return Storage.getList();
-}
-
 NoteList.getNodeIndexById = function(id){
     return NoteList.list.map(function(e) { return e.id; }).indexOf(parseInt(id));
 }
