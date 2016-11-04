@@ -36,9 +36,6 @@ NoteList.addNote = function() {
     note.title = $('input[name="title"]').val();
     note.content = $('textarea').val();
     note.importance = +$('#importanceInput').find('.ui-state-active').attr("data-importance");
-    console.log("Note.editId");
-    console.log(Note.editId);
-
 
     if(Note.editId<1) {
         note.created = new Date();
