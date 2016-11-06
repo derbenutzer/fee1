@@ -31,8 +31,10 @@ addEventHandlers = function(){
 
 
     $('#createNodeSubmit').click(function(e){
-        e.preventDefault();
-        NoteList.addNote();
+        if($('input#title')[0].checkValidity()&&$('textarea#content')[0].checkValidity()&&$('#datepicker')[0].checkValidity()){
+            e.preventDefault();
+            NoteList.addNote();
+        }
     });
 
     $('#mainContent').find('select').on("change",function(){

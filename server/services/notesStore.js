@@ -33,12 +33,16 @@ function getNotes(callback) {
   }
 }
 
-function storeNotes(content) {
+function storeNotes(content, callback) {
 
   //console.log("content in add: "+JSON.stringify(content));
 
   try {
-    db.update({"name":"notelist"}, {"name":"notelist","storedList":content}, {});
+    db.update({"name":"notelist"}, {"name":"notelist","storedList":content}, {}, function (err) {
+      if (callback) {
+        callback(err);
+      }
+    });
   } catch (err) {
     console.log("error in notesStore.js, storeNotes(): " + err.toString());
   }

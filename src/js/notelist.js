@@ -1,11 +1,9 @@
 window['NoteList'] = {
 };
 
-NoteList.list;
-
 NoteList.render = function(){
 
-    console.log("render");
+    //console.log("render");
 
     var noteListTemplateText = $('#noteListTemplateText').html();
     var createNoteListHtml = Handlebars.compile (noteListTemplateText);
@@ -24,6 +22,7 @@ NoteList.render = function(){
 };
 
 NoteList.addNote = function() {
+
     let dateText = $('#datepicker').val().split(".");
     let temp = dateText[0];
     dateText[0]=dateText[1];
@@ -40,6 +39,9 @@ NoteList.addNote = function() {
     if(Note.editId<1) {
         note.created = new Date();
         note.id = (NoteList.list.length + 1);
+        while($( "li#noteId_"+note.id.toString()).length){
+            note.id++;
+        }
         note.isFinished = 0;
         NoteList.list.push(note)
     }
@@ -57,8 +59,6 @@ NoteList.addNote = function() {
 };
 
 
-
-
 NoteList.toggleFinished = function(id){
     let index = NoteList.getNodeIndexById(id);
     let isFinished = NoteList.list[index].isFinished;
@@ -72,16 +72,15 @@ NoteList.toggleFinished = function(id){
     NoteList.storeList();
 };
 
-NoteList.deleteNote = function(node){
+NoteList.deleteNote = function(noteId){
 
-    console.log("delete");
     $('body').addClass("shade");
 
     $("#deleteDialog").dialog({
         title:"Confirm",
         buttons : {
             "Confirm" : function() {
-                NoteList.deleteHelper(node);
+                NoteList.deleteHelper(noteId);
                 $('body').removeClass("shade");
                 $(this).dialog("close");
             },
@@ -93,10 +92,15 @@ NoteList.deleteNote = function(node){
     });
 };
 
-NoteList.deleteHelper = function(node){
-    node = $($(node).closest('li')).hide();
-    let id = parseInt(node.find(".nId").text());
+NoteList.deleteHelper = function(noteId){
+
+    let node = $('li#noteId_'+noteId);
+    node.hide();
+    let id = parseInt(noteId);
     let index = NoteList.getNodeIndexById(id);
+
+    console.log(NoteList);
+    console.log(id);
 
     NoteList.list.splice(index, 1);
 

@@ -6,10 +6,8 @@ module.exports.getNotes = function (req, res) {
   });
 };
 
-module.exports.storeNotes = function (req) {
-  store.store(req.body);
-};
-
-module.exports.start = function () {
-    res.end("index.html");
+module.exports.storeNotes = function (req, res) {
+  store.store(req.body,function(){
+      res.end("OK");
+  });
 };
