@@ -1,7 +1,7 @@
 #My  Notes
 HSR FEE project1
 
-![screenshot of the app](screenshot.PNG "Screenshot of the app")
+
 
 
 ## Starting the app
