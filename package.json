@@ -1,0 +1,25 @@
+{
+  "name": "mynotes",
+  "version": "1.0.0",
+  "description": "notes app",
+  "main": "index.html",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derbenutzer/fee1.git"
+  },
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "keywords": [
+    "notes",
+    "hsr"
+  ],
+  "author": "claudio steffen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/derbenutzer/fee1/issues"
+  },
+  "homepage": "https://github.com/derbenutzer/fee1#readme"
+}
