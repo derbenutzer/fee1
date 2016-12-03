@@ -14,7 +14,7 @@ run `npm install` to install the dependencies.
 ## Starting the app
 
 Starting the server:
-Run `npm start` within the directory of the app. The server will listen on http://localhost:3002.
+Run `npm start` within the directory of the app. The server will listen on [http://localhost:3002](http://localhost:3002).
 
 Starting the client:
-open http://localhost:3002
+open [http://localhost:3002](http://localhost:3002)
